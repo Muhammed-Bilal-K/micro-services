@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 const connectToRabbitMQ = async () => {
   try {
     const connection: amqp.Connection = await amqp.connect(
-      "amqp://rabbitmq-service"
+      process.env.RABBIT_MQ!
     );
     const channel: amqp.Channel = await connection.createChannel();
     await channel.assertQueue("Orders", { durable: false });

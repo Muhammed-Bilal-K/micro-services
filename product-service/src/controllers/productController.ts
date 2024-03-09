@@ -9,7 +9,7 @@ interface AuthenticatedRequest extends Request {
 const connectToRabbitMQ = async () => {
   try {
     const connection: amqp.Connection = await amqp.connect(
-      "amqp://rabbitmq-service"
+      process.env.RABBIT_MQ!
     );
     const channel: amqp.Channel = await connection.createChannel();
     await channel.assertQueue("Product", { durable: false });
