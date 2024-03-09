@@ -1,0 +1,36 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+
+deploy:
+  kubectl:
+    manifests:
+      - infra/k8s/*
+
+build:
+  local:
+    push: false
+  artifacts:
+    - image: mhdbilal/auth-service
+      context: auth-service
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual: 
+        - src: 'src/**/*.ts'
+          dest: .
+    - image: mhdbilal/product-service
+      context: product-service
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual: 
+        - src: 'src/**/*.ts'
+          dest: .
+    - image: mhdbilal/order-service
+      context: order-service
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual: 
+        - src: 'src/**/*.ts'
+          dest: .
